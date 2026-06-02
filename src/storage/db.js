@@ -2,12 +2,20 @@ const Database = require('better-sqlite3');
 const db = new Database('datos.db');
 
 db.exec(`
-  CREATE TABLE IF NOT EXISTS cursos (
+  CREATE TABLE IF NOT EXISTS profiles (
     id         INTEGER PRIMARY KEY AUTOINCREMENT,
-    nombre     TEXT NOT NULL,
-    instructor TEXT NOT NULL,
-    creditos   INTEGER NOT NULL
-  )
+    name       TEXT NOT NULL,
+    isVerified BOOLEAN DEFAULT 0
+  );
+
+  CREATE TABLE IF NOT EXISTS places (
+    id         INTEGER PRIMARY KEY AUTOINCREMENT,
+    address    TEXT NOT NULL,
+    isVerified BOOLEAN DEFAULT 0,
+    capacity   INTEGER NOT NULL,
+    owner      INTEGER NOT NULL,
+    FOREIGN KEY (owner) REFERENCES profiles(id)
+  );
 `);
 
 module.exports = db;
