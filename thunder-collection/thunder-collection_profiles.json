@@ -1,0 +1,80 @@
+{
+    "clientName": "Thunder Client",
+    "collectionName": "API Profiles - Simple CRUD",
+    "collectionId": "3a4b5c6d-7e8f-9a0b-1c2d-3e4f5a6b7c8d",
+    "dateExported": "2026-06-02T08:00:00.000Z",
+    "version": "1.4",
+    "folders": [],
+    "requests": [
+        {
+            "_id": "tc-prof-01",
+            "colId": "3a4b5c6d-7e8f-9a0b-1c2d-3e4f5a6b7c8d",
+            "containerId": "",
+            "name": "1. [Happy Path] Crear un perfil válido",
+            "url": "http://localhost:3000/profiles",
+            "method": "POST",
+            "sortNum": 10000,
+            "headers": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"name\": \"Alice\"\n}",
+                "form": []
+            },
+            "tests": [
+                {
+                    "type": "resCode",
+                    "custom": "",
+                    "action": "equal",
+                    "value": "201"
+                }
+            ]
+        },
+        {
+            "_id": "tc-prof-02",
+            "colId": "3a4b5c6d-7e8f-9a0b-1c2d-3e4f5a6b7c8d",
+            "containerId": "",
+            "name": "2. [Validación] Error al crear perfil sin nombre",
+            "url": "http://localhost:3000/profiles",
+            "method": "POST",
+            "sortNum": 20000,
+            "headers": [],
+            "body": {
+                "type": "json",
+                "raw": "{}",
+                "form": []
+            },
+            "tests": [
+                {
+                    "type": "resCode",
+                    "custom": "",
+                    "action": "equal",
+                    "value": "400"
+                }
+            ]
+        },
+        {
+            "_id": "tc-prof-03",
+            "colId": "3a4b5c6d-7e8f-9a0b-1c2d-3e4f5a6b7c8d",
+            "containerId": "",
+            "name": "3. [Validación] Error al crear perfil con nombre vacío",
+            "url": "http://localhost:3000/profiles",
+            "method": "POST",
+            "sortNum": 30000,
+            "headers": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"name\": \"\"\n}",
+                "form": []
+            },
+            "tests": [
+                {
+                    "type": "resCode",
+                    "custom": "",
+                    "action": "equal",
+                    "value": "400"
+                }
+            ]
+        }
+    ],
+    "ref": "P5jakz0yw_mfQea3rGlGslLxJ4DwSLA43Dfd9_yhysY33_SD0tmpooDOYZ92qMKLqWI8jr-8tx7ZFWckewGxew"
+}
