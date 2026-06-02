@@ -36,7 +36,7 @@ module.exports = {
             return res.status(404).json({ error: 'Lugar no encontrado' });
         }
 
-        if (place.owner !== parseInt(profileId)) {
+        if (place.owner !== Number(profileId)) {
             return res.status(403).json({ error: 'Solo el dueño puede verificar el lugar' });
         }
 
