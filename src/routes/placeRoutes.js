@@ -1,45 +1,4 @@
-const express = require('express');
-const swaggerUi = require('swagger-ui-express');
-const swaggerJsdoc = require('swagger-jsdoc');
-const { createProfile } = require('./controllers/profileController');
-const { createPlace, updatePlace, verifyPlace } = require('./controllers/placeController');
-
-const app = express();
-app.use(express.json());
-
-const swaggerSpec = swaggerJsdoc({
-    definition: {
-        openapi: '3.0.0',
-        info: {
-            title: 'API Espacios Musicales',
-            version: '1.0.0',
-            description: 'Mapa colaborativo y gamificado de espacios musicales. Conecta músicos, público y productores en una plataforma centralizada para descubrir y validar lugares de encuentro musical.'
-        }
-    },
-    apis: ['./src/index.js']
-});
-app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
-
-/**
- * @swagger
- * /profiles:
- *   post:
- *     summary: Crear un nuevo perfil
- *     requestBody:
- *       required: true
- *       content:
- *         application/json:
- *           schema:
- *             type: object
- *             properties:
- *               name: { type: string }
- *     responses:
- *       201:
- *         description: Perfil creado
- *       400:
- *         description: Datos inválidos
- */
-app.post('/profiles', createProfile);
+const { createPlace, updatePlace, verifyPlace } = require('../controllers/placeController');
 
 /**
  * @swagger
@@ -62,7 +21,6 @@ app.post('/profiles', createProfile);
  *       400:
  *         description: Datos inválidos o owner no existe
  */
-app.post('/places', createPlace);
 
 /**
  * @swagger
@@ -89,7 +47,6 @@ app.post('/places', createPlace);
  *       404:
  *         description: Lugar no encontrado
  */
-app.put('/places/:id', updatePlace);
 
 /**
  * @swagger
@@ -117,6 +74,9 @@ app.put('/places/:id', updatePlace);
  *       404:
  *         description: Lugar no encontrado
  */
-app.patch('/places/:id/verify', verifyPlace);
 
-app.listen(3000, () => console.log('API en http://localhost:3000'));
+module.exports = function(app) {
+    app.post('/places', createPlace);
+    app.put('/places/:id', updatePlace);
+    app.patch('/places/:id/verify', verifyPlace);
+};
