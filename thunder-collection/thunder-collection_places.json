@@ -1,0 +1,218 @@
+{
+    "clientName": "Thunder Client",
+    "collectionName": "API Places - Simple CRUD",
+    "collectionId": "4b5c6d7e-8f9a-0b1c-2d3e-4f5a6b7c8d9e",
+    "dateExported": "2026-06-02T08:00:00.000Z",
+    "version": "1.4",
+    "folders": [],
+    "requests": [
+        {
+            "_id": "tc-plc-01",
+            "colId": "4b5c6d7e-8f9a-0b1c-2d3e-4f5a6b7c8d9e",
+            "containerId": "",
+            "name": "1. [Happy Path] Crear un lugar válido",
+            "url": "http://localhost:3000/places",
+            "method": "POST",
+            "sortNum": 10000,
+            "headers": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"address\": \"Calle 1\",\n  \"capacity\": 100,\n  \"owner\": 1\n}",
+                "form": []
+            },
+            "tests": [
+                {
+                    "type": "resCode",
+                    "custom": "",
+                    "action": "equal",
+                    "value": "201"
+                }
+            ]
+        },
+        {
+            "_id": "tc-plc-02",
+            "colId": "4b5c6d7e-8f9a-0b1c-2d3e-4f5a6b7c8d9e",
+            "containerId": "",
+            "name": "2. [Validación] Error al crear lugar sin datos",
+            "url": "http://localhost:3000/places",
+            "method": "POST",
+            "sortNum": 20000,
+            "headers": [],
+            "body": {
+                "type": "json",
+                "raw": "{}",
+                "form": []
+            },
+            "tests": [
+                {
+                    "type": "resCode",
+                    "custom": "",
+                    "action": "equal",
+                    "value": "400"
+                }
+            ]
+        },
+        {
+            "_id": "tc-plc-03",
+            "colId": "4b5c6d7e-8f9a-0b1c-2d3e-4f5a6b7c8d9e",
+            "containerId": "",
+            "name": "3. [Regla de Negocio] Error al crear lugar con owner inexistente",
+            "url": "http://localhost:3000/places",
+            "method": "POST",
+            "sortNum": 30000,
+            "headers": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"address\": \"Calle Falsa\",\n  \"capacity\": 50,\n  \"owner\": 9999\n}",
+                "form": []
+            },
+            "tests": [
+                {
+                    "type": "resCode",
+                    "custom": "",
+                    "action": "equal",
+                    "value": "400"
+                }
+            ]
+        },
+        {
+            "_id": "tc-plc-04",
+            "colId": "4b5c6d7e-8f9a-0b1c-2d3e-4f5a6b7c8d9e",
+            "containerId": "",
+            "name": "4. [Happy Path] Actualizar dirección de un lugar",
+            "url": "http://localhost:3000/places/1",
+            "method": "PUT",
+            "sortNum": 40000,
+            "headers": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"address\": \"Calle Nueva\"\n}",
+                "form": []
+            },
+            "tests": [
+                {
+                    "type": "resCode",
+                    "custom": "",
+                    "action": "equal",
+                    "value": "200"
+                }
+            ]
+        },
+        {
+            "_id": "tc-plc-05",
+            "colId": "4b5c6d7e-8f9a-0b1c-2d3e-4f5a6b7c8d9e",
+            "containerId": "",
+            "name": "5. [Clase Equivalencia] Error al actualizar lugar inexistente",
+            "url": "http://localhost:3000/places/9999",
+            "method": "PUT",
+            "sortNum": 50000,
+            "headers": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"address\": \"No existe\"\n}",
+                "form": []
+            },
+            "tests": [
+                {
+                    "type": "resCode",
+                    "custom": "",
+                    "action": "equal",
+                    "value": "404"
+                }
+            ]
+        },
+        {
+            "_id": "tc-plc-06",
+            "colId": "4b5c6d7e-8f9a-0b1c-2d3e-4f5a6b7c8d9e",
+            "containerId": "",
+            "name": "6. [Happy Path] Verificar lugar como su dueño",
+            "url": "http://localhost:3000/places/1/verify",
+            "method": "PATCH",
+            "sortNum": 60000,
+            "headers": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"profileId\": 1\n}",
+                "form": []
+            },
+            "tests": [
+                {
+                    "type": "resCode",
+                    "custom": "",
+                    "action": "equal",
+                    "value": "200"
+                }
+            ]
+        },
+        {
+            "_id": "tc-plc-07",
+            "colId": "4b5c6d7e-8f9a-0b1c-2d3e-4f5a6b7c8d9e",
+            "containerId": "",
+            "name": "7. [Regla de Negocio] Error al verificar lugar sin ser el dueño",
+            "url": "http://localhost:3000/places/1/verify",
+            "method": "PATCH",
+            "sortNum": 70000,
+            "headers": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"profileId\": 2\n}",
+                "form": []
+            },
+            "tests": [
+                {
+                    "type": "resCode",
+                    "custom": "",
+                    "action": "equal",
+                    "value": "403"
+                }
+            ]
+        },
+        {
+            "_id": "tc-plc-08",
+            "colId": "4b5c6d7e-8f9a-0b1c-2d3e-4f5a6b7c8d9e",
+            "containerId": "",
+            "name": "8. [Clase Equivalencia] Error al verificar lugar inexistente",
+            "url": "http://localhost:3000/places/9999/verify",
+            "method": "PATCH",
+            "sortNum": 80000,
+            "headers": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"profileId\": 1\n}",
+                "form": []
+            },
+            "tests": [
+                {
+                    "type": "resCode",
+                    "custom": "",
+                    "action": "equal",
+                    "value": "404"
+                }
+            ]
+        },
+        {
+            "_id": "tc-plc-09",
+            "colId": "4b5c6d7e-8f9a-0b1c-2d3e-4f5a6b7c8d9e",
+            "containerId": "",
+            "name": "9. [Validación] Error al verificar lugar sin profileId",
+            "url": "http://localhost:3000/places/1/verify",
+            "method": "PATCH",
+            "sortNum": 90000,
+            "headers": [],
+            "body": {
+                "type": "json",
+                "raw": "{}",
+                "form": []
+            },
+            "tests": [
+                {
+                    "type": "resCode",
+                    "custom": "",
+                    "action": "equal",
+                    "value": "400"
+                }
+            ]
+        }
+    ],
+    "ref": "P5jakz0yw_mfQea3rGlGslLxJ4DwSLA43Dfd9_yhysY33_SD0tmpooDOYZ92qMKLqWI8jr-8tx7ZFWckewGxew"
+}
