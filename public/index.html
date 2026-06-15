@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Espacios Musicales - MVP</title>
+    <style>
+        body { font-family: sans-serif; max-width: 800px; margin: 20px auto; padding: 0 20px; line-height: 1.6; }
+        section { border: 1px solid #ccc; padding: 15px; margin-bottom: 20px; border-radius: 8px; }
+        h2 { margin-top: 0; }
+        form div { margin-bottom: 10px; }
+        label { display: block; font-weight: bold; }
+        input { width: 100%; padding: 8px; box-sizing: border-box; }
+        button { background: #007bff; color: white; border: none; padding: 10px 15px; border-radius: 4px; cursor: pointer; }
+        button:hover { background: #0056b3; }
+        .error { color: red; font-weight: bold; }
+        .success { color: green; font-weight: bold; }
+        #response { background: #f4f4f4; padding: 10px; border-radius: 4px; white-space: pre-wrap; }
+    </style>
+</head>
+<body>
+    <h1>🎸 Espacios Musicales</h1>
+    
+    <section>
+        <h2>Crear Perfil</h2>
+        <form id="profileForm">
+            <div>
+                <label for="profileName">Nombre:</label>
+                <input type="text" id="profileName" required>
+            </div>
+            <button type="submit">Crear Perfil</button>
+        </form>
+    </section>
+
+    <section>
+        <h2>Crear Lugar</h2>
+        <form id="placeForm">
+            <div>
+                <label for="placeAddress">Dirección:</label>
+                <input type="text" id="placeAddress" required>
+            </div>
+            <div>
+                <label for="placeCapacity">Capacidad:</label>
+                <input type="number" id="placeCapacity" required>
+            </div>
+            <div>
+                <label for="placeOwner">ID del Dueño (Profile ID):</label>
+                <input type="number" id="placeOwner" required>
+            </div>
+            <button type="submit">Crear Lugar</button>
+        </form>
+    </section>
+
+    <section>
+        <h2>Actualizar Lugar</h2>
+        <form id="updatePlaceForm">
+            <div>
+                <label for="updatePlaceId">ID del Lugar:</label>
+                <input type="number" id="updatePlaceId" required>
+            </div>
+            <div>
+                <label for="updatePlaceProfileId">Tu ID de Perfil (Autorización):</label>
+                <input type="number" id="updatePlaceProfileId" required>
+            </div>
+            <div>
+                <label for="updatePlaceAddress">Nueva Dirección (opcional):</label>
+                <input type="text" id="updatePlaceAddress">
+            </div>
+            <div>
+                <label for="updatePlaceCapacity">Nueva Capacidad (opcional):</label>
+                <input type="number" id="updatePlaceCapacity">
+            </div>
+            <button type="submit">Actualizar Lugar</button>
+        </form>
+    </section>
+
+    <section>
+        <h2>Respuesta</h2>
+        <div id="response">Esperando acciones...</div>
+    </section>
+
+    <script src="app.js"></script>
+</body>
+</html>

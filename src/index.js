@@ -1,11 +1,14 @@
 const express = require('express');
 const swaggerUi = require('swagger-ui-express');
 const swaggerJsdoc = require('swagger-jsdoc');
-const { createProfile } = require('./controllers/profileController');
-const { createPlace, updatePlace, verifyPlace } = require('./controllers/placeController');
 
 const app = express();
 app.use(express.json());
+app.use(express.static('public'));
+
+// Routes
+require('./routes/profileRoutes')(app);
+require('./routes/placeRoutes')(app);
 
 const swaggerSpec = swaggerJsdoc({
     definition: {
@@ -39,7 +42,6 @@ app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
  *       400:
  *         description: Datos inválidos
  */
-app.post('/profiles', createProfile);
 
 /**
  * @swagger
@@ -62,7 +64,6 @@ app.post('/profiles', createProfile);
  *       400:
  *         description: Datos inválidos o owner no existe
  */
-app.post('/places', createPlace);
 
 /**
  * @swagger
@@ -89,7 +90,6 @@ app.post('/places', createPlace);
  *       404:
  *         description: Lugar no encontrado
  */
-app.put('/places/:id', updatePlace);
 
 /**
  * @swagger
@@ -117,6 +117,5 @@ app.put('/places/:id', updatePlace);
  *       404:
  *         description: Lugar no encontrado
  */
-app.patch('/places/:id/verify', verifyPlace);
 
 app.listen(3000, () => console.log('API en http://localhost:3000'));

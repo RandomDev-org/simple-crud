@@ -1,12 +1,13 @@
-const Profile = require('../models/Profile');
+const profileService = require('../services/profileService');
 
 module.exports = {
     createProfile(req, res) {
-        const { name } = req.body;
-        if (!name || typeof name !== 'string') {
-            return res.status(400).json({ error: 'name es requerido y debe ser string' });
+        try {
+            const { name } = req.body;
+            const profile = profileService.createProfile(name);
+            res.status(201).json(profile);
+        } catch (error) {
+            res.status(error.status || 500).json({ error: error.message || 'Error interno del servidor' });
         }
-        const profile = Profile.create(name);
-        res.status(201).json(profile);
     }
 };
