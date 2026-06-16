@@ -2,21 +2,22 @@ const Place = require('../models/Place');
 const Profile = require('../models/Profile');
 
 class PlaceService {
-    createPlace(data) {
+    async createPlace(data) {
         const { address, capacity, owner } = data;
         if (!address || !capacity || !owner) {
             throw { status: 400, message: 'address, capacity, y owner son requeridos' };
         }
         
-        if (!Profile.getById(owner)) {
+        const profile = await Profile.getById(owner);
+        if (!profile) {
             throw { status: 400, message: 'El owner no existe' };
         }
 
-        return Place.create(address, capacity, owner);
+        return await Place.create(address, capacity, owner);
     }
 
-    updatePlace(id, data, requesterProfileId) {
-        const place = Place.getById(id);
+    async updatePlace(id, data, requesterProfileId) {
+        const place = await Place.getById(id);
         if (!place) {
             throw { status: 404, message: 'Lugar no encontrado' };
         }
@@ -25,15 +26,15 @@ class PlaceService {
             throw { status: 403, message: 'rechazado' };
         }
 
-        return Place.update(id, data);
+        return await Place.update(id, data);
     }
 
-    verifyPlace(id, requesterProfileId) {
+    async verifyPlace(id, requesterProfileId) {
         if (!requesterProfileId) {
             throw { status: 400, message: 'profileId es requerido' };
         }
 
-        const place = Place.getById(id);
+        const place = await Place.getById(id);
         if (!place) {
             throw { status: 404, message: 'Lugar no encontrado' };
         }
@@ -42,11 +43,11 @@ class PlaceService {
             throw { status: 403, message: 'Solo el dueño puede verificar el lugar' };
         }
 
-        return Place.verify(id);
+        return await Place.verify(id);
     }
 
-    getPlaceById(id) {
-        const place = Place.getById(id);
+    async getPlaceById(id) {
+        const place = await Place.getById(id);
         if (!place) {
             throw { status: 404, message: 'Lugar no encontrado' };
         }
